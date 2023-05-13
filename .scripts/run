@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd pkg-1
+mvn clean package
+cd ..
+
+cd pkg-main
+mvn clean package
+cd ..
+
+echo
+echo "Packaged the mvn projects ..."
+
+echo
+PKG_1="pkg-1/target/pkg-1-1.0.0.jar"
+PKG_MAIN="pkg-main/target/pkg-main-1.0.0.jar"
+
+echo "The order of the classpath is the class resolution precedence"
+java -cp "${PKG_1}:${PKG_MAIN}" com.song.example.Exe
+echo
+java -cp "${PKG_MAIN}:${PKG_1}" com.song.example.Exe
+
+echo
